@@ -9,6 +9,8 @@ public class SignUp_Or_SignIn
 		System.out.println("Enter 1 for SignUp\nEnter 2 for SignIn\n");
 		Scanner sc = new Scanner(System.in);
 		byte choice = sc.nextByte();
+		
+		
 		if(choice == 1) 
 		{
 			SignUp newuser = new SignUp();

@@ -18,6 +18,7 @@ public class MainControl
 		{
 			User user = new User(val);
 		}
+		System.out.println("s");
 	}
 
 }

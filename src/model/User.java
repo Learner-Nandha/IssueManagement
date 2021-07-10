@@ -10,24 +10,25 @@ public class User
 	public User(String userName) throws Exception 
 	{
 		
-		Scanner sc = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("Enter your issue:");
-		String issue = sc.nextLine();
+		String issue = scan.nextLine();
 		
 		System.out.println("Enter the issue location:");
-		String issueLocation = sc.nextLine();
+		String issueLocation = scan.nextLine();
 		
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtusa", "root", "root");
 
-			PreparedStatement ps = con.prepareStatement("insert into issue values(?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into issue values(?,?,?,?)");
 			
 			ps.setString(1, userName);
 			ps.setString(2, issue);
 			ps.setString(3, issueLocation);
+			ps.setString(4, "new");
 
 			ps.executeUpdate();
 			System.out.println("Your Issue will be Processed and Solved quickly...");
@@ -37,5 +38,6 @@ public class User
 		{
 			System.out.println("Thank you...!!!");
 		}
+		scan.close();
 	}
 }

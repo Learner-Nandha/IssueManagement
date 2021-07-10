@@ -1,10 +1,9 @@
 package service;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 
@@ -23,7 +22,8 @@ public class SignUp
 		System.out.println("Enter Password:");
 		String userPass = in.nextLine();
 		
-		if(CheckUser(userName,userEmail) ) 
+		
+		if(checkUser(userName,userEmail) ) 
 		{
 			System.out.println("Username and Useremail already exists...");
 			System.out.println("Enter another username and email..");
@@ -50,9 +50,10 @@ public class SignUp
 				System.out.println("You are successfully registered...");
 			}
 		}
+		
 	}
 
-	private boolean CheckUser(String userName,String userEmail) throws Exception
+	private boolean checkUser(String userName,String userEmail) throws Exception
 	{
 		boolean st = false;
 		try {
@@ -70,7 +71,8 @@ public class SignUp
 		} 
 		finally
 		{
-		return st;
+		
 		}
+		return st;
 	}
 }

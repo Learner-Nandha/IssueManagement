@@ -19,7 +19,9 @@ public class SignIn
 		System.out.println("Enter Password:");
 		String userPass = in.nextLine();
 		
-		if(userName=="admin" && userPass=="1234")
+		
+		
+		if(userName.equalsIgnoreCase("admin") && userPass.equals("1234"))
 		{
 			System.out.println("Welcome Admin...!!!");
 			return null;
@@ -35,6 +37,7 @@ public class SignIn
 			System.out.println("Enter the email and password correctly...");
 			return user();
 		}
+		
 	}
 	
 	private boolean CheckUser(String userName, String userPass) 
@@ -59,6 +62,9 @@ public class SignIn
 		{
 			e.printStackTrace();
 		}
+		
 		return st;
+		
 	}
+	
 }
