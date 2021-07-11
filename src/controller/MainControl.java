@@ -15,12 +15,15 @@ public class MainControl
 		if(val == 0)
 		{
 			Admin admin = new Admin();
+			admin.view();
 		}
 		else
 		{
 			User user = new User(val);
 			user.issue();
 		}
+		
+		System.out.println("Thanks For using Issue Management...!!!");
 		
 	}
 

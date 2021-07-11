@@ -5,12 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 import service.IssueProcessor;
 
 public class Admin 
 {
-	public Admin() throws Exception
+	byte choice = 1;
+	public void view() throws Exception
 	{
 		try
 		{
@@ -31,18 +33,28 @@ public class Admin
 			}
 			
 			
-			Statement qs = con.createStatement();
-			qs.execute("update issue set status='processing...' where status='new'");
-			
 			rs.close();
-			
-			IssueProcessor issueprocessor = new IssueProcessor();
-			
 			
 		}
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
+		}
+		finally
+		{
+			Scanner scan = new Scanner(System.in);
+				
+			System.out.println("Enter 1 to continue\nEnter 2 to exit");
+			choice = scan.nextByte();
+			
+			if(choice==1)
+			{
+				System.out.println("Enter the issueid to process:");
+				IssueProcessor proc = new IssueProcessor(scan.nextInt());
+				
+				proc.process();	
+				view();
+			}
 		}
 	}
 }
