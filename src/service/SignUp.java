@@ -4,6 +4,8 @@ import java.sql.Connection;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
@@ -23,10 +25,10 @@ public class SignUp
 		String userPass = in.nextLine();
 		
 		
-		if(checkUser(userName,userEmail) ) 
+		if(checkUser(userEmail) ) 
 		{
-			System.out.println("Username and Useremail already exists...");
-			System.out.println("Enter another username and email..");
+			System.out.println("Useremail already exists...");
+			System.out.println("Enter another email..");
 			user();
 		}
 		else 
@@ -36,43 +38,54 @@ public class SignUp
 				Class.forName("com.mysql.jdbc.Driver");
 				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtusa", "root", "root");
 
-				PreparedStatement ps = con.prepareStatement("insert into registeruser values(?,?,?)");
+				PreparedStatement ps = con.prepareStatement("insert into registeruser values(null,?,?,?)");
 
 				ps.setString(1, userName);
 				ps.setString(2, userEmail);
 				ps.setString(3, userPass);
 
-				ps.executeUpdate();
+				int rs = ps.executeUpdate();
+				
+				if(rs>0)
+				{
+					System.out.println("You are successfully registered...");
+				}
 
 			} 
-			finally 
+			catch(SQLException e)
 			{
-				System.out.println("You are successfully registered...");
+				e.printStackTrace();
 			}
+			
 		}
 		
 	}
 
-	private boolean checkUser(String userName,String userEmail) throws Exception
+	private boolean checkUser(String userEmail) throws Exception
 	{
 		boolean st = false;
-		try {
+		try 
+		{
 
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtusa", "root", "root");
 			
-			PreparedStatement ps = con.prepareStatement("select * from registeruser where username=? and email=?");
-			ps.setString(1, userName);
+			PreparedStatement ps = con.prepareStatement("select * from registeruser where email=?");
 			ps.setString(1, userEmail);
 			
 			
-			ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
+			if(rs.next())
+			{
+				st = true;
+			}
 			
-		} 
-		finally
-		{
-		
 		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
 		return st;
 	}
 }

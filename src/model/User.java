@@ -3,11 +3,12 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class User 
 {
-	public User(String userName) throws Exception 
+	public User(int val) throws Exception 
 	{
 		
 		Scanner scan = new Scanner(System.in);
@@ -23,21 +24,25 @@ public class User
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtusa", "root", "root");
 
-			PreparedStatement ps = con.prepareStatement("insert into issue values(?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into issue values(null,?,?,?,?)");
 			
-			ps.setString(1, userName);
+			ps.setInt(1, val);
 			ps.setString(2, issue);
 			ps.setString(3, issueLocation);
 			ps.setString(4, "new");
 
-			ps.executeUpdate();
-			System.out.println("Your Issue will be Processed and Solved quickly...");
+			int rs = ps.executeUpdate();
+			
+			if(rs>0) 
+			{
+				System.out.println("Your Issue will be Processed and Solved quickly...");
+			}
 			
 		}
-		finally
+		catch (SQLException e) 
 		{
-			System.out.println("Thank you...!!!");
+			e.printStackTrace();
 		}
-		scan.close();
+		
 	}
 }

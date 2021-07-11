@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Admin 
@@ -15,24 +16,28 @@ public class Admin
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtusa", "root", "root");
 			
 			Statement ps = con.createStatement();
+			
 			ResultSet rs = ps.executeQuery("select * from issue where status='new'");
-			System.out.println("--------------------NEW ISSUES--------------------");
-			System.out.println("  username  |  issue  |  issuelocation  ");
+			
+			System.out.println("-------------------------NEW  ISSUES-------------------------");
+			System.out.println(" IssueId | UserId |      Issue      | IssueLocation | Status ");
+			System.out.println("-------------------------------------------------------------");
+			
 			while (rs.next()) 
 			{
-				System.out.println(rs.getString("username")+" "+rs.getString("issue")+" "+rs.getString("issuelocation"));
+				System.out.println(rs.getInt("issueid")+" | "+rs.getInt("userid")+" | "+rs.getString("issue")+" | "+rs.getString("issuelocation")+" | "+rs.getString("status"));
 			}
 			
 			
 			Statement qs = con.createStatement();
-			qs.executeUpdate("update issue set status='processing' where status='new'");
+			qs.execute("update issue set status='processing' where status='new'");
 			
 			rs.close();
 			
 		}
-		finally
+		catch (SQLException e) 
 		{
-			
+			e.printStackTrace();
 		}
 	}
 }

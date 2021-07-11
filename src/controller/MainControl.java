@@ -9,8 +9,10 @@ public class MainControl
 	public static void main(String[] args) throws Exception 
 	{
 		SignUp_Or_SignIn sign = new SignUp_Or_SignIn();
-		String val = sign.value();
-		if(val == null)
+		
+		int val = sign.value();
+		
+		if(val == 0)
 		{
 			Admin admin = new Admin();
 		}
@@ -18,7 +20,7 @@ public class MainControl
 		{
 			User user = new User(val);
 		}
-		System.out.println("s");
+		
 	}
 
 }
