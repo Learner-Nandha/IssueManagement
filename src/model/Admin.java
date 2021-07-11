@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import service.IssueProcessor;
+
 public class Admin 
 {
 	public Admin() throws Exception
@@ -30,9 +32,12 @@ public class Admin
 			
 			
 			Statement qs = con.createStatement();
-			qs.execute("update issue set status='processing' where status='new'");
+			qs.execute("update issue set status='processing...' where status='new'");
 			
 			rs.close();
+			
+			IssueProcessor issueprocessor = new IssueProcessor();
+			
 			
 		}
 		catch (SQLException e) 

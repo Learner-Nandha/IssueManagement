@@ -19,6 +19,7 @@ public class MainControl
 		else
 		{
 			User user = new User(val);
+			user.issue();
 		}
 		
 	}
