@@ -6,19 +6,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
-public class IssueDelete 
+public class IssueUpdate 
 {
 	int issueId;
-	public IssueDelete(int issueId) 
+	
+	public IssueUpdate(int issueId) 
 	{
-		this.issueId = issueId;
+		this.issueId=issueId;
 	}
 
-	public void delete() throws Exception
+	public void update() throws Exception
 	{
 		try 
 		{
+			Scanner scan = new Scanner(System.in);
+			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtusa", "root", "root");
 			
@@ -35,19 +39,25 @@ public class IssueDelete
 			
 			if(s.equals("new"))
 			{
+				System.out.println("Enter your issue:");
+				String issue = scan.nextLine();
+				
+				System.out.println("Enter the issue location:");
+				String issueLocation = scan.nextLine();
+				
 				Statement st = con.createStatement();
-				st.executeUpdate("delete from issue where issueid="+issueId+"");
+				st.executeUpdate("update issue set issue='"+issue+"',issuelocation='"+issueLocation+"' where issueid="+issueId);
+				
 			}
 			else 
 			{
-				System.out.println("Processsing or Solved issue cannot be deleted");
+				System.out.println("Processsing or Solved issue cannot be updated");
 			}
 		}
 		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
-		
 	}
 
 }
