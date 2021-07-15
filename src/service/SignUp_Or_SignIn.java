@@ -17,7 +17,7 @@ public class SignUp_Or_SignIn
 			newuser.user();
 		}
 			
-			SignIn olduser = new SignIn();
-			return olduser.user();
+		SignIn olduser = new SignIn();
+		return olduser.user();
 	}
 }
